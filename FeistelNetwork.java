@@ -94,9 +94,11 @@ class FeistelNetwork{
             String xorRes = xor(left, fFuncRes);
             // switch input -- two halves are swapped.
             input = right + xorRes;
+            if(i == 15) {
+                return xorRes + right;
+            }
         }
-        // Return final string generated after round 16
-        return input;
+        return null;
     }
     
     /**

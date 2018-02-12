@@ -11,7 +11,7 @@ class DES{
     @return 64-bit encrypted text   
    */   
    static String encrypt(String x, String key){
-      String[] subkeys = KeySchedule.generateSubkeysForDecryption(key);
+      String[] subkeys = KeySchedule.generateSubkeysForEncryption(key);
       String initialPermutedOutput = IP.permute(x); 
       String FeistelOutput = FeistelNetwork.iterate(initialPermutedOutput,subkeys);
       String finalOutput = IPinverse.permute(FeistelOutput);

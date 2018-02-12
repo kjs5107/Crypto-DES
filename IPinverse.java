@@ -31,4 +31,15 @@ class IPinverse{
       return permutedString.toString();
    }
 
+   public static void main(String[] args) {
+      String answer = "";
+      String input = "11110000";
+      for(int i = 0; i < 8; i++) {
+         answer += input;
+      }
+
+      String out = permute(IP.permute(answer));
+      System.out.println(answer.equals(out));
+   }
+
 }
