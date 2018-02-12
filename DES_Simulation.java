@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-/*
+/**
   Main simulation engine.
   Do not modify class/method names used in supplied code.
   Usage: java DES_Simulation plaintext-filename key-filename

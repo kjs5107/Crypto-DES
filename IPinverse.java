@@ -1,5 +1,5 @@
 /**
-Author: Put your name here
+Author: Kyle Scagnelli
 */
 class IPinverse{
    /**
@@ -11,7 +11,7 @@ class IPinverse{
      @param bits 64-bits 
      @return 64-bits IPinverse(bits)
    */
-   public static String permute(String bits){
+   static String permute(String bits){
             
       return null;
    }

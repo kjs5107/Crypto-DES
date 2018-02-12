@@ -1,6 +1,6 @@
 /**
-Includes  encryption and decryption algirithms
-Author: Put your name
+Includes encryption and decryption algirithms
+Author: Kyle Scagnelli
 */
 
 class DES{
@@ -11,7 +11,7 @@ class DES{
     @return 64-bit encrypted text   
    */   
    public static String encrypt(String x, String key){          
-      String[] subkeys = KeySchedule.generateSubkeysForEncryption(key);
+      String[] subkeys = KeySchedule.generateSubkeysForDecryption(key);
       String initialPermutedOutput = IP.permute(x); 
       String FeistelOutput = FeistelNetwork.iterate(initialPermutedOutput,subkeys);
       String finalOutput = IPinverse.permute(FeistelOutput);
@@ -29,7 +29,6 @@ class DES{
       String FeistelOutput = FeistelNetwork.iterate(initialPermutedOutput, subkeys);
       String finalOutput = IPinverse.permute(FeistelOutput);
       return finalOutput;
-
    }
    
 }

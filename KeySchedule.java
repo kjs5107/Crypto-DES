@@ -1,5 +1,5 @@
 /**
-Author: Put your name here
+Author: Kyle Scagnelli
 */
 class KeySchedule{
    /* Initialize lookup tables for PC_1 and PC_2 */

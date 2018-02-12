@@ -5,14 +5,14 @@ The Conversion class provides two utility functions for string conversion:
 */
 class Conversion{
    /**
-   Converts a text of 8 characters to 64-bits 
-   @param a string of 8 characters e.g. "ABCD-xyz"
+   Converts a text of 8 characters to 64-bits
+   @param str a string of 8 characters e.g. "ABCD-xyz"
    @return a string of 64 bits e.g. "0100...."
    */
    public static String strToBits(String str){
       byte[] bytes = str.getBytes(); //an array of 8 bytes 
                                      //e.g. {65, 66, 67, 68, 45, 120, 121, 122}
-      String result = ""; 
+      String result = "";
       //Extract each bit from bytes and concatenate to result
       for (byte b : bytes)
       {

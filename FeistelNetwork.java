@@ -1,5 +1,5 @@
 /**
-    Author: Your name here
+    Author: Kyle Scagnelli
     FeistelNetwork consists of 16 rounds. 
     Each round performs identical operations.
 */
@@ -82,8 +82,21 @@ class FeistelNetwork{
         @param subkeys an array of 16 subkeys
         @return a 64-bit string generated after round 16.    
      */
-    public static String iterate(String input, String[] subkeys){
-        return null;      
+    static String iterate(String input, String[] subkeys){
+        // Loop 16 times to represent 16 rounds of algorithm
+        for(int i = 0; i < 16; i ++) {
+            // grab left and right halves of input
+            String left = input.substring(0, input.length() / 2);
+            String right = input.substring(input.length() / 2);
+            // grab result of f function with right half and subkey of this round
+            String fFuncRes = fFunction(right, subkeys[i]);
+            // grab xor result of left and the f function result
+            String xorRes = xor(left, fFuncRes);
+            // switch input -- two halves are swapped.
+            input = right + xorRes;
+        }
+        // Return final string generated after round 16
+        return input;
     }
     
     /**
@@ -95,18 +108,28 @@ class FeistelNetwork{
      * @param key - 48-bit subkey used for this round
      * @return a 32-bit output F(r, key)
      */
-    public static String fFunction(String r, String key) {
-        return null;    
+    private static String fFunction(String r, String key) {
+        String expansionRes = expansion(r);
+        String xorRes = xor(expansionRes, key);
+        String sBoxesRes = sBoxes(xorRes);
+        return pPermutation(sBoxesRes);
     }
     
     /**
-     * Performs the XOP operation between 2 equal length strings
+     * Performs the XOR operation between 2 equal length strings
      * @param firstInput - first string to XOR
      * @param secondInput - second string to XOR
      * @return resulting string of the XOR operation
      */
-    public static String xor(String firstInput, String secondInput) {        
-       return null;
+    private static String xor(String firstInput, String secondInput) {
+        // use stringbuilder for performance boost in case of huge strings (maybe not for this specific implementation
+        // but a good practice nonetheless
+        StringBuilder xorString = new StringBuilder();
+        for(int i = 0; i < firstInput.length(); i++) {
+            // xor the two i'th characters in both the strings -- no need to worry about unequal string lengths
+            xorString.append((char) (firstInput.charAt(i) ^ secondInput.charAt(i)));
+        }
+        return xorString.toString();
     }
     
     /**
@@ -114,8 +137,15 @@ class FeistelNetwork{
      * @param r - right half of the input to expand
      * @return a 48-bit string
      */
-    public static String expansion(String r) {
-       return null;
+    private static String expansion(String r) {
+        StringBuilder expandedString = new StringBuilder();
+        // loop through rows and cols of fixed 2d array
+        for(int i = 0; i < 8; i ++) {
+            for(int j = 0; j < 6; j++) {
+                expandedString.append(r.charAt(Expansion[i][j]));
+            }
+        }
+        return expandedString.toString();
     }
     
     /**
@@ -125,16 +155,53 @@ class FeistelNetwork{
      * @param input - 48-bit string to feed into the S-boxes
      * @return a 32-bit string; combined outputs of the S-boxes
      */
-    public static String sBoxes(String input) {
-        return null;
+    private static String sBoxes(String input) {
+        StringBuilder finalRes = new StringBuilder();
+        int bitPos = 0; // keeps track of how to separate the 6-bit blocks
+
+        // loop 8 times to separate into eight 6-bit blocks and perform different substitutions
+        for(int i = 0; i < 8; i++) {
+            // grab correct 6-bit block
+            String sixBitBlock = input.substring(bitPos, bitPos + 6);
+            bitPos += 6;
+
+            // calculate row and col of substitution box by converting binary to decimal
+            String binaryRow = sixBitBlock.charAt(0) + sixBitBlock.charAt(5) + "";
+            int decimalRow = Integer.parseInt(binaryRow, 2);
+            String binaryCol = sixBitBlock.charAt(1) + sixBitBlock.charAt(2) + sixBitBlock.charAt(3) + sixBitBlock.charAt(4) + "";
+            int decimalCol = Integer.parseInt(binaryCol, 2);
+
+            // feed into sub box
+            int decimalRes = SBoxes[i][decimalRow][decimalCol];
+
+            // convert decimal to binary, keeping leading zeros
+            StringBuilder binaryRes = new StringBuilder();
+            while (decimalRes > 0) {
+                binaryRes.append(decimalRes % 2);
+                decimalRes /= 2;
+            }
+            binaryRes.reverse();
+
+            // add this 4 bit output onto the final result
+            finalRes.append(binaryRes.toString());
+        }
+
+        return finalRes.toString();
     }
-    
+
     /**
      * Permutes 32-bit input using the P permutation table
      * @param input - 32-bit string to feed into the P permutation table
      * @return a 32-bit string
      */
-    public static String pPermutation(String input) {
-        return null;
+    private static String pPermutation(String input) {
+        StringBuilder permutedString = new StringBuilder();
+        // loop through rows and cols of fixed 2d array
+        for(int i = 0; i < 4; i ++) {
+            for(int j = 0; j < 8; j++) {
+                permutedString.append(input.charAt(PPermutation[i][j]));
+            }
+        }
+        return permutedString.toString();
     }
 }
