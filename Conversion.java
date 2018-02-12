@@ -9,7 +9,7 @@ class Conversion{
    @param str a string of 8 characters e.g. "ABCD-xyz"
    @return a string of 64 bits e.g. "0100...."
    */
-   public static String strToBits(String str){
+   static String strToBits(String str){
       byte[] bytes = str.getBytes(); //an array of 8 bytes 
                                      //e.g. {65, 66, 67, 68, 45, 120, 121, 122}
       String result = "";
@@ -31,7 +31,7 @@ class Conversion{
    @param bits A string of 64-bits e.g. "01000001..."
    @return A string of 8-characters  e.g. "ABCD-xyz"
    */
-   public static String bitsToStr(String bits){
+   static String bitsToStr(String bits){
       byte[] bytes = new byte[8];
       for(int j=0; j<8; j++){
          bytes[j] = 0;
@@ -44,7 +44,6 @@ class Conversion{
             }
             else if(ch != '0'){
                System.out.println("Wrong input bits");
-       
             }
          }
       }

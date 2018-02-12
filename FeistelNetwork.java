@@ -127,7 +127,7 @@ class FeistelNetwork{
         StringBuilder xorString = new StringBuilder();
         for(int i = 0; i < firstInput.length(); i++) {
             // xor the two i'th characters in both the strings -- no need to worry about unequal string lengths
-            xorString.append((char) (firstInput.charAt(i) ^ secondInput.charAt(i)));
+            xorString.append(firstInput.charAt(i) ^ secondInput.charAt(i));
         }
         return xorString.toString();
     }
@@ -138,11 +138,12 @@ class FeistelNetwork{
      * @return a 48-bit string
      */
     private static String expansion(String r) {
+        assert r.length() == 32;
         StringBuilder expandedString = new StringBuilder();
         // loop through rows and cols of fixed 2d array
         for(int i = 0; i < 8; i ++) {
             for(int j = 0; j < 6; j++) {
-                expandedString.append(r.charAt(Expansion[i][j]));
+                expandedString.append(r.charAt(Expansion[i][j]-1));
             }
         }
         return expandedString.toString();
@@ -156,6 +157,7 @@ class FeistelNetwork{
      * @return a 32-bit string; combined outputs of the S-boxes
      */
     private static String sBoxes(String input) {
+        assert input.length() == 48;
         StringBuilder finalRes = new StringBuilder();
         int bitPos = 0; // keeps track of how to separate the 6-bit blocks
 
@@ -166,26 +168,22 @@ class FeistelNetwork{
             bitPos += 6;
 
             // calculate row and col of substitution box by converting binary to decimal
-            String binaryRow = sixBitBlock.charAt(0) + sixBitBlock.charAt(5) + "";
+            String binaryRow = sixBitBlock.charAt(0) + "" + sixBitBlock.charAt(5);
             int decimalRow = Integer.parseInt(binaryRow, 2);
-            String binaryCol = sixBitBlock.charAt(1) + sixBitBlock.charAt(2) + sixBitBlock.charAt(3) + sixBitBlock.charAt(4) + "";
+            String binaryCol = "" + sixBitBlock.charAt(1) + sixBitBlock.charAt(2) + sixBitBlock.charAt(3) + sixBitBlock.charAt(4);
             int decimalCol = Integer.parseInt(binaryCol, 2);
 
             // feed into sub box
             int decimalRes = SBoxes[i][decimalRow][decimalCol];
 
             // convert decimal to binary, keeping leading zeros
-            StringBuilder binaryRes = new StringBuilder();
-            while (decimalRes > 0) {
-                binaryRes.append(decimalRes % 2);
-                decimalRes /= 2;
-            }
-            binaryRes.reverse();
+            String binaryRes = String.format("%4s", Integer.toBinaryString(decimalRes)).replace(' ', '0');
 
             // add this 4 bit output onto the final result
-            finalRes.append(binaryRes.toString());
+            finalRes.append(binaryRes);
         }
 
+        assert finalRes.length() == 32;
         return finalRes.toString();
     }
 
@@ -195,11 +193,12 @@ class FeistelNetwork{
      * @return a 32-bit string
      */
     private static String pPermutation(String input) {
+        assert input.length() == 32;
         StringBuilder permutedString = new StringBuilder();
         // loop through rows and cols of fixed 2d array
         for(int i = 0; i < 4; i ++) {
             for(int j = 0; j < 8; j++) {
-                permutedString.append(input.charAt(PPermutation[i][j]));
+                permutedString.append(input.charAt(PPermutation[i][j]-1));
             }
         }
         return permutedString.toString();

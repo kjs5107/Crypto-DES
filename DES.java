@@ -10,7 +10,7 @@ class DES{
     @param key 64-bit key
     @return 64-bit encrypted text   
    */   
-   public static String encrypt(String x, String key){          
+   static String encrypt(String x, String key){
       String[] subkeys = KeySchedule.generateSubkeysForDecryption(key);
       String initialPermutedOutput = IP.permute(x); 
       String FeistelOutput = FeistelNetwork.iterate(initialPermutedOutput,subkeys);
@@ -23,7 +23,7 @@ class DES{
     @param key 64-bit key
     @return 64-bit decrypted text  
    */
-   public static String decrypt(String y, String key){
+   static String decrypt(String y, String key){
       String[] subkeys = KeySchedule.generateSubkeysForDecryption(key);
       String initialPermutedOutput = IP.permute(y); 
       String FeistelOutput = FeistelNetwork.iterate(initialPermutedOutput, subkeys);

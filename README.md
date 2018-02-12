@@ -16,29 +16,29 @@ DES program consists of several classes:
    - Includes encryption and decryption algorithms
    - Completed (do not modify)
 
-3. IP
+4. IP
    - Initial permutation
    - Completed (do not modify)
 
-4. FeisteNetwork
+5. FeisteNetwork
    - Consists of 16 rounds. 
    - This class includes the f-function with four steps: Expansion, Xor, S-box substitution, Permutation 
    - To be completed
 
-5. IPinverse
+6. IPinverse
    - Final permutation, inverse of the initial permutation
    - To be completed  
 
-6. KeySchedule
-  - Includes key scheduling algorithms for both encryption and decryption
-  - To be completed
+7. KeySchedule
+   - Includes key scheduling algorithms for both encryption and decryption
+   - To be completed
 
 
 Things to Know:
 
 1. To run the DES_Simulation class, provide two command line arguments
-   for a file name for plaintext and another file name for the key
-   To run, type “java DES_Simulation input.txt key.txt”
+   for a file name for plaintext and another file name for the key.
+   For example, type “java DES_Simulation input.txt key.txt”
    
    With the given txt files, your program output must be:
 

@@ -24,7 +24,7 @@ class IP{
    @param bits a String of 64 bits
    @return permuted string of 64 bits
    */   
-   public static String permute(String bits){
+   static String permute(String bits){
       assert bits.length() == 64;
       
       String result = "";
