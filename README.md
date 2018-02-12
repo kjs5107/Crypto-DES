@@ -42,10 +42,10 @@ Things to Know:
    
    With the given txt files, your program output must be:
 
-   ciphertext: 1100100011010010001000001001111011111011011101001101100110000101
-   Success
-   recovered Text:
-   Hi World
+   - Ciphertext: 1100100011010010001000001001111011111011011101001101100110000101
+   - Success
+   - Recovered Text:
+   - Hi World
 
 2. .txt files are included:
    - The input.txt file contains exactly 8 characters which fit in a block of 64 bits. 

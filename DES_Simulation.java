@@ -30,12 +30,12 @@ class DES_Simulation{
       /* Plaintext, a block of 64 bits*/
       String x = Conversion.strToBits(input0.nextLine());// plaintext, a block of 64 bits
       String y = DES.encrypt(x, key); //64-bits ciphertext
-      System.out.println("ciphertext: " + y);          
+      System.out.println("Ciphertext: " + y);
       String decrypted = DES.decrypt(y, key);
       System.out.println(decrypted.equals(x) ? "Success" : "Fail");
       recoveredText = Conversion.bitsToStr(decrypted);
        
-      System.out.println("recoverted Text: ");
+      System.out.println("Recovered Text: ");
       System.out.println(recoveredText);   
    }
 }
